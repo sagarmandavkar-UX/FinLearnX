@@ -1,0 +1,118 @@
+# Beginner Financial Education Modules
+
+modules:
+  - id: intro_market
+    title: "Introduction to Markets"
+    type: lesson
+    duration: 30
+    difficulty: beginner
+    description: "Overview of stocks, bonds, ETFs, and why they matter"
+    topics:
+      - What is a stock?
+      - Understanding bonds
+      - ETFs explained
+      - Market participants
+      - How markets work
+    learning_outcomes:
+      - Understand basic financial instruments
+      - Identify different asset classes
+      - Explain market dynamics
+    quiz:
+      - question: "What represents ownership in a company?"
+        options:
+          - "Stock"
+          - "Bond"
+          - "ETF"
+          - "Mutual Fund"
+        answer: 0
+
+  - id: basic_portfolio
+    title: "Building a Starter Portfolio"
+    type: lesson
+    duration: 45
+    difficulty: beginner
+    description: "Diversification, risk basics, creating allocations"
+    topics:
+      - Diversification fundamentals
+      - Risk vs Return
+      - Asset allocation
+      - Portfolio construction
+      - Rebalancing basics
+    learning_outcomes:
+      - Create a diversified portfolio
+      - Understand risk management
+      - Apply asset allocation principles
+    quiz:
+      - question: "What is diversification?"
+        options:
+          - "Investing in one stock"
+          - "Spreading investments across different assets"
+          - "Only buying bonds"
+          - "Day trading"
+        answer: 1
+
+  - id: risk_return
+    title: "Understanding Risk & Return"
+    type: lesson
+    duration: 40
+    difficulty: beginner
+    description: "Risk-return tradeoff and investment principles"
+    topics:
+      - Risk types
+      - Expected returns
+      - Standard deviation
+      - Risk tolerance
+      - Time horizon
+    learning_outcomes:
+      - Assess personal risk tolerance
+      - Calculate expected returns
+      - Understand volatility
+
+  - id: basics_technical
+    title: "Basics of Technical Analysis"
+    type: lesson
+    duration: 50
+    difficulty: beginner
+    description: "Chart patterns, trends, and basic indicators"
+    topics:
+      - Reading charts
+      - Support and resistance
+      - Moving averages
+      - Volume analysis
+      - Basic patterns
+    learning_outcomes:
+      - Read stock charts
+      - Identify trends
+      - Use basic indicators
+
+  - id: investment_accounts
+    title: "Investment Accounts 101"
+    type: lesson
+    duration: 25
+    difficulty: beginner
+    description: "Brokerage accounts, retirement accounts, tax implications"
+    topics:
+      - Types of accounts
+      - Tax-advantaged accounts
+      - 401(k) basics
+      - IRA explained
+      - Taxable accounts
+    learning_outcomes:
+      - Choose appropriate account types
+      - Understand tax implications
+      - Plan for retirement
+
+case_studies:
+  - title: "Sarah's First Portfolio"
+    scenario: "25-year-old professional starting to invest"
+    key_lessons:
+      - Time horizon advantage
+      - Dollar-cost averaging
+      - Low-cost index funds
+
+  - title: "Emergency Fund First"
+    scenario: "Understanding the importance of cash reserves"
+    key_lessons:
+      - 3-6 months expenses
+      - Liquidity importance
+      - Risk management
