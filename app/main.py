@@ -33,6 +33,11 @@ st.sidebar.page_link(
     label="Open $100K Simulator",
     icon="🎮",
 )
+st.sidebar.page_link(
+    "pages/portfolio_review.py",
+    label="Review My Portfolio",
+    icon="🧭",
+)
 st.sidebar.caption("Educational simulation only · Not financial advice")
 
 
@@ -99,14 +104,23 @@ def challenge_preview() -> None:
             1. selecting investments,
             2. making at least one simulated trade,
             3. reviewing portfolio allocation and performance,
-            4. identifying one risk or diversification lesson from the result.
+            4. opening the Portfolio Learning Review,
+            5. identifying one risk or diversification lesson from the result.
             """
         )
-        st.page_link(
-            "pages/simulations.py",
-            label="Start the $100K Challenge",
-            icon="🚀",
-        )
+        a, b = st.columns(2)
+        with a:
+            st.page_link(
+                "pages/simulations.py",
+                label="Start the $100K Challenge",
+                icon="🚀",
+            )
+        with b:
+            st.page_link(
+                "pages/portfolio_review.py",
+                label="Review My Portfolio",
+                icon="🧭",
+            )
 
 
 if selection == "Home":
@@ -146,7 +160,7 @@ if selection == "Home":
     with p3:
         with st.container(border=True):
             st.markdown("### Reflect and improve")
-            st.write("Review performance, allocation, and decision quality after each simulation.")
+            st.write("Review performance, allocation, concentration, and decision quality after each simulation.")
 
 elif selection == "Start Challenge":
     st.title("$100K Portfolio Challenge")
@@ -178,11 +192,12 @@ elif selection == "Product Roadmap":
     st.markdown("### P0 — Complete the core loop")
     st.markdown(
         """
-        - guided first-portfolio challenge
+        - guided first-portfolio challenge ✅
+        - contextual portfolio learning review ✅
+        - diversification and concentration feedback ✅
         - S&P 500 benchmark comparison
-        - diversification and concentration scores
         - volatility and drawdown metrics
-        - educational feedback tied to portfolio decisions
+        - richer educational feedback tied to portfolio decisions
         """
     )
 
