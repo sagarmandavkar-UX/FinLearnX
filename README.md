@@ -1,296 +1,283 @@
-# FinLearnX: AI Financial Learning + Portfolio Platform
+# FinLearnX — Learn Investing by Making Decisions
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
 ![Status](https://img.shields.io/badge/status-active-success)
 
-## 🎯 Purpose
+FinLearnX is an educational investing simulator designed around one core idea:
 
-Empower users to learn finance, simulate portfolios, and practice trading using AI-driven tools and comprehensive educational modules.
+> **People learn finance better when concepts are tied directly to decisions and outcomes.**
 
-## ✨ Key Features
+Instead of separating financial education from investing practice, FinLearnX connects them in one loop:
 
-### 🤖 AI-Powered Intelligence
-- **Multi-Agent AI System**: Market analyst, portfolio advisor, risk manager, trading coach, and beginner educator
-- **Intelligent Tutoring**: Personalized financial education with interactive Q&A
-- **Smart Recommendations**: AI-driven portfolio suggestions and content recommendations
+**Learn → Decide → Simulate → Analyze → Improve**
 
-### 📚 Learning Hub
-- **Beginner to Advanced Modules**: Structured learning paths covering fundamentals to advanced strategies
-- **Case Studies**: Real-world financial scenarios (2008 crash, bond yield curves, sector rotation)
-- **Interactive Quizzes**: Test your knowledge with comprehensive assessments
-- **Financial Modeling Walkthroughs**: Step-by-step DCF, valuation, and portfolio construction
+Users can practice investing with virtual money, inspect portfolio outcomes, and receive educational feedback about risk, diversification, and decision quality.
 
-### 💼 Portfolio Management
-- **Optimization Engines**: Mean-Variance (MPT) and Black-Litterman models
-- **Risk Analytics**: VaR, volatility analysis, Monte Carlo simulations
-- **Regime Detection**: ML-based market regime classification (bull/bear/sideways)
-- **Sector Rotation**: Intelligent sector allocation analysis
+> ⚠️ FinLearnX is for educational purposes only and does not provide financial advice.
 
-### 🎮 Simulations & Trading
-- **Backtesting Engine**: Test strategies with comprehensive performance metrics
-- **Paper Trading**: Practice with virtual cash and real market data
-- **Market Crash Simulator**: Stress test portfolios against historical crises
-- **Bond Yield Simulator**: Interactive bond pricing and yield curve analysis
-- **ETF Allocation Playground**: Experiment with different allocation strategies
+---
 
-### 📊 Market Analysis
-- **Technical Indicators**: RSI, MACD, moving averages, volume analysis
-- **Macro Analysis**: Economic indicators and their market impacts
-- **Real-time Data**: Integration with Alpaca, Finnhub, and yfinance
+## Product problem
 
-## 🏗️ Architecture Overview
+Beginner investors have access to more financial information than ever, but often struggle to translate concepts such as diversification, risk, volatility, and portfolio construction into actual decisions.
 
-```
-┌─────────────────┐
-│  Streamlit UI   │
-└────────┬────────┘
-         │
-    ┌────▼────┐
-    │   AI    │◄──── Multi-Agent LLM System
-    │  Layer  │
-    └────┬────┘
-         │
-    ┌────▼────────────────────────┐
-    │     Core Business Logic     │
-    ├─────────────────────────────┤
-    │ • Market Data Ingestion     │
-    │ • Technical Indicators      │
-    │ • Regime Detection          │
-    │ • Portfolio Optimization    │
-    │ • Risk Engine               │
-    │ • Backtesting               │
-    │ • Simulations               │
-    └────┬────────────────────────┘
-         │
-    ┌────▼────┐
-    │  Data   │◄──── APIs: Alpaca, Finnhub, yfinance
-    │ Storage │
-    └─────────┘
-```
+Traditional learning products explain concepts. Trading simulators let users act. FinLearnX is designed to connect both experiences.
 
-## 📁 Project Structure
+### Target user
 
-```
-FinLearnX/
-│
-├── app/                    # Streamlit frontend
-│   ├── main.py
-│   └── pages/
-│       ├── dashboard.py
-│       ├── learn.py
-│       ├── ai_tutor.py
-│       ├── market.py
-│       ├── portfolio.py
-│       ├── simulations.py
-│       ├── backtesting.py
-│       ├── trading.py
-│       └── settings.py
-│
-├── core/                   # Business logic
-│   ├── data_ingestion.py
-│   ├── indicators.py
-│   ├── regime_classifier.py
-│   ├── optimizer.py
-│   ├── risk.py
-│   ├── portfolio.py
-│   └── simulation.py
-│
-├── ai/                     # AI/LLM layer
-│   ├── tutor_prompts.yaml
-│   ├── agent_templates.py
-│   └── safety_rules.yaml
-│
-├── models/                 # ML models
-│   ├── regime_model.pkl
-│   ├── monte_carlo.py
-│   └── risk_model.py
-│
-├── portfolio/              # Optimization
-│   ├── optimize_mpt.py
-│   ├── black_litterman.py
-│   └── rebalance.py
-│
-├── education/              # Learning content
-│   └── modules/
-│       ├── beginner.yaml
-│       ├── intermediate.yaml
-│       └── advanced.yaml
-│
-├── simulations/            # Simulation engines
-│   ├── trading_sim.py
-│   ├── crash_sim.py
-│   └── bond_sim.py
-│
-├── backtesting/            # Backtest engine
-│   └── engine.py
-│
-├── tests/                  # Unit tests
-│   └── ...
-│
-└── docs/                   # Documentation
-    └── architecture.md
-```
+FinLearnX is currently designed for:
 
-## 🚀 Installation
+- college students and early-career professionals learning investing
+- first-time investors who want to practice without risking real capital
+- users who learn best through interactive decisions rather than passive content
 
-### Prerequisites
-- Python 3.8 or higher
-- pip package manager
-- Git
+### Core product loop
 
-### Setup Instructions
+1. **Learn** a financial concept
+2. **Make** an investment decision
+3. **Simulate** the outcome with virtual capital
+4. **Analyze** performance and portfolio structure
+5. **Reflect** on why the result happened
+6. **Improve** the next decision
+
+---
+
+## Flagship experience: $100K Portfolio Challenge
+
+The strongest shipped FinLearnX experience is the stock simulation workflow.
+
+Users start with **$100,000 in virtual cash** and can:
+
+- buy and sell stocks using market data
+- track cash, holdings, and portfolio value
+- inspect portfolio allocation
+- view interactive price and volume charts
+- measure total return
+- review trading history
+- receive educational performance feedback
+
+Run it with:
 
 ```bash
-# Clone the repository
+streamlit run app/pages/simulations.py
+```
+
+---
+
+## ✅ Shipped today
+
+### Trading simulation
+
+- $100K virtual portfolio
+- buy and sell simulated positions
+- portfolio holdings and allocation
+- trade history
+- portfolio return tracking
+- interactive price charts
+- market-data integration with `yfinance`
+
+### Portfolio analytics
+
+- portfolio optimization utilities
+- portfolio allocation analysis
+- simulation infrastructure
+
+### Financial-learning infrastructure
+
+- AI tutor prompt library
+- structured finance-learning concepts
+- education-focused safety framing
+
+### Product foundation
+
+- Streamlit interface
+- modular Python architecture
+- tests and GitHub workflow structure
+- financial-data ingestion utilities
+
+---
+
+## 🛠️ Next product priorities
+
+The roadmap is intentionally prioritized around improving the core learning loop before expanding platform breadth.
+
+### P0 — Complete the learning loop
+
+- onboarding by investing experience, learning goal, and risk tolerance
+- guided **Build Your First $100K Portfolio** challenge
+- benchmark portfolio performance against the S&P 500
+- diversification score
+- concentration-risk warnings
+- volatility and drawdown metrics
+- educational feedback tied directly to portfolio decisions
+
+### P1 — Personalized financial learning
+
+- decision journal: *Why are you making this trade?*
+- portfolio-specific AI explanations
+- personalized lesson recommendations based on user behavior
+- behavioral-finance insights such as overtrading, concentration, and loss aversion
+- learning missions such as:
+  - Build a diversified portfolio
+  - Survive a market crash
+  - Build a low-volatility portfolio
+  - Protect against inflation
+
+### P2 — Progression and scenarios
+
+- learner levels and competency progression
+- scenario stress testing
+- historical crisis simulations
+- risk-adjusted scoring
+- portfolio-review challenges
+
+### Later — only after core engagement is validated
+
+- community challenges
+- collaborative portfolios
+- mobile experience
+- options education
+- deeper brokerage integrations
+- advanced predictive ML
+
+---
+
+## Product metrics
+
+### North Star Metric
+
+**Weekly Learning Decisions Completed**
+
+A learning decision is a meaningful portfolio construction, simulated trade, scenario, or portfolio review followed by educational feedback.
+
+### Supporting metrics
+
+| Funnel | Metric |
+|---|---|
+| Acquisition | New users |
+| Activation | % completing first portfolio simulation |
+| Engagement | Learning decisions per active user |
+| Simulation | Trades / simulations per user |
+| Learning | Lessons and missions completed |
+| AI | Contextual tutor interactions per user |
+| Retention | D7 / D30 returning learners |
+| Quality | Mission completion and portfolio-review rate |
+
+The product should optimize for **learning and decision quality**, not simply simulated returns.
+
+---
+
+## Product principles
+
+### 1. Learning before speculation
+
+FinLearnX should reward understanding, diversification, and decision quality rather than high-risk bets that happen to produce large returns.
+
+### 2. Feedback should be contextual
+
+Education becomes more useful when it explains the user's own portfolio or simulated decision.
+
+### 3. Practice should be safe
+
+All trading is simulated. FinLearnX does not execute real trades or provide personalized financial advice.
+
+### 4. Ship depth before breadth
+
+A complete portfolio-learning journey is more valuable than many disconnected unfinished tools.
+
+---
+
+## Architecture
+
+```text
+FinLearnX/
+├── app/
+│   ├── main.py                  # product home and onboarding
+│   └── pages/
+│       └── simulations.py       # flagship $100K trading simulator
+├── core/
+│   └── data_ingestion.py        # market-data utilities
+├── ai/
+│   └── tutor_prompts.yaml       # educational AI prompt definitions
+├── portfolio/
+│   └── optimize_mpt.py          # portfolio optimization
+├── simulations/
+│   └── trading_sim.py           # trading simulation engine
+├── docs/
+│   └── PRODUCT_STRATEGY.md      # PM strategy, metrics, roadmap
+├── tests/
+├── requirements.txt
+└── README.md
+```
+
+This section reflects the current repository. Planned capabilities are listed separately in the roadmap rather than presented as already shipped.
+
+---
+
+## Installation
+
+```bash
 git clone https://github.com/sagarmandavkar-UX/FinLearnX.git
 cd FinLearnX
 
-# Create virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## 💻 How to Run
-
-### Launch Streamlit App
+### Run the product home
 
 ```bash
 streamlit run app/main.py
 ```
 
-The app will open in your browser at `http://localhost:8501`
+### Run the portfolio simulator directly
 
-### Run Backtests
-
-```python
-from backtesting.engine import run_backtest
-
-# Define your strategy
-results = run_backtest(ticker='AAPL', start='2020-01-01', end='2023-12-31')
-print(results)
+```bash
+streamlit run app/pages/simulations.py
 ```
 
-### Use API Integrations
+---
 
-Set up your API keys in `.env` file:
+## Data and API configuration
 
-```
+Some modules support external market-data providers. Keep API keys in local environment configuration and never commit credentials.
+
+Example:
+
+```text
 ALPACA_API_KEY=your_key_here
 ALPACA_SECRET_KEY=your_secret_here
 FINNHUB_API_KEY=your_key_here
 ```
 
-## 📊 Usage Examples
+---
 
-### Portfolio Optimization
+## Product strategy
 
-```python
-from portfolio.optimize_mpt import optimize_portfolio
+For the PM rationale, prioritization framework, north-star metric, user journey, roadmap, and experiment plan, see:
 
-tickers = ['AAPL', 'GOOGL', 'MSFT', 'AMZN']
-weights = optimize_portfolio(tickers, risk_tolerance=0.5)
-print(f"Optimal weights: {weights}")
-```
-
-### Market Crash Simulation
-
-```python
-from simulations.crash_sim import simulate_crash
-
-portfolio = {'AAPL': 0.3, 'BONDS': 0.3, 'GOLD': 0.4}
-impact = simulate_crash(portfolio, scenario='2008_crisis')
-print(f"Portfolio impact: {impact}%")
-```
-
-### AI Tutor Chat
-
-```python
-from ai.agent_templates import MarketAnalystAgent
-
-agent = MarketAnalystAgent()
-response = agent.ask("Explain the concept of beta in portfolio management")
-print(response)
-```
-
-## 🎓 Educational Modules
-
-### Beginner Track
-- Introduction to Markets
-- Building a Starter Portfolio
-- Understanding Risk & Return
-- Basics of Technical Analysis
-
-### Intermediate Track
-- Portfolio Optimization Theory
-- Technical Indicators Deep Dive
-- Options & Derivatives
-- Sector Rotation Strategies
-
-### Advanced Track
-- Black-Litterman Optimization
-- Monte Carlo Risk Analysis
-- Quantitative Trading Strategies
-- Market Microstructure
-
-## 🛠️ Tech Stack
-
-- **Frontend**: Streamlit
-- **Backend**: Python
-- **ML/AI**: scikit-learn, TensorFlow, LangChain
-- **Data**: pandas, numpy, yfinance
-- **Visualization**: matplotlib, plotly
-- **APIs**: Alpaca, Finnhub, Yahoo Finance
-
-## 📈 Roadmap
-
-- [ ] Deep brokerage integration (live trading)
-- [ ] News sentiment analysis
-- [ ] Options data and strategies
-- [ ] Multi-agent orchestration enhancements
-- [ ] Mobile app (React Native)
-- [ ] Community content sharing
-- [ ] Real-time collaboration features
-- [ ] Advanced ML models for prediction
-
-## ⚠️ Disclaimer
-
-**This platform is for educational purposes only and is NOT financial advice.**
-
-- Do not make investment decisions based solely on this tool
-- Past performance does not guarantee future results
-- All investments carry risk; you may lose money
-- Consult with a licensed financial advisor before making investment decisions
-- The creators are not responsible for any financial losses incurred
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👤 Author
-
-**Sagar Mandavkar**
-- GitHub: [@sagarmandavkar-UX](https://github.com/sagarmandavkar-UX)
-
-## 🙏 Acknowledgments
-
-- Financial data providers: Alpaca, Finnhub, Yahoo Finance
-- Open source community
-- Financial education resources
+[`docs/PRODUCT_STRATEGY.md`](docs/PRODUCT_STRATEGY.md)
 
 ---
 
-**Built with ❤️ for financial education and empowerment**
+## Disclaimer
+
+**FinLearnX is an educational simulation and is not financial advice.**
+
+- simulated performance does not predict future results
+- all investing involves risk
+- users should not make investment decisions solely based on this project
+- consult an appropriately qualified professional for personal financial advice
+
+---
+
+## Author
+
+**Sagar Mandavkar**  
+GitHub: [@sagarmandavkar-UX](https://github.com/sagarmandavkar-UX)
+
+---
+
+**FinLearnX: Learn → Decide → Simulate → Analyze → Improve**
