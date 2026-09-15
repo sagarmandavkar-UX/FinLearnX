@@ -14,6 +14,9 @@ jobs:
       matrix:
         python-version: ['3.10', '3.11']
 
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -28,6 +31,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements-ci.txt
+
+      - name: Verify package imports
+        run: |
+          python -c "from portfolio.optimize_mpt import MPTOptimizer; from simulations.trading_sim import TradingSimulator; print('package imports OK')"
 
       - name: Run tests
         run: |
