@@ -1,0 +1,9 @@
+# Minimal deterministic dependency set used by GitHub Actions tests.
+# Keep CI focused on currently tested/shipped modules rather than optional roadmap tooling.
+
+numpy==1.25.2
+pandas==2.1.1
+scipy==1.11.3
+yfinance==0.2.31
+pytest==7.4.3
+pytest-cov==4.1.0
