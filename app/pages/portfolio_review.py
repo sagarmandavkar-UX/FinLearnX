@@ -4,11 +4,18 @@ Turns a simulated portfolio into educational feedback about concentration,
 diversification, and decision quality. Educational use only.
 """
 
-import math
+from pathlib import Path
+import sys
 
 import pandas as pd
 import streamlit as st
 import yfinance as yf
+
+# Ensure the repository root is importable whether this page is opened through
+# Streamlit multipage navigation or run directly.
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from simulations.trading_sim import TradingSimulator
 
@@ -53,7 +60,6 @@ holdings["Weight"] = holdings["Value"] / portfolio_value if portfolio_value else
 
 largest_weight = float(holdings["Weight"].max()) if not holdings.empty else 0
 num_positions = len(holdings)
-herfindahl = float((holdings["Weight"] ** 2).sum())
 
 # A simple educational heuristic, not an investment recommendation.
 position_component = min(60, num_positions * 12)
