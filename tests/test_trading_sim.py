@@ -104,3 +104,18 @@ class TestTradingSimulator:
         self.sim.buy("AAPL", 10, 100.0)
         self.sim.sell("AAPL", 5, 120.0)
         assert self.sim.cash == 99600
+
+    def test_rejects_invalid_orders_without_changing_balances(self):
+        for quantity, price in [(0, 100.0), (-1, 100.0), (1, 0.0), (1, float("nan")), (1, float("inf"))]:
+            assert not self.sim.buy("AAPL", quantity, price)["success"]
+            assert not self.sim.sell("AAPL", quantity, price)["success"]
+        assert self.sim.cash == 100000
+        assert self.sim.transaction_history == []
+
+    def test_supports_more_than_500_simulated_trades(self):
+        for _ in range(251):
+            assert self.sim.buy("AAPL", 1, 100.0)["success"]
+            assert self.sim.sell("AAPL", 1, 100.0)["success"]
+        assert len(self.sim.transaction_history) == 502
+        assert self.sim.cash == 100000
+        assert self.sim.portfolio == {}

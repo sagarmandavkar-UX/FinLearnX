@@ -4,6 +4,14 @@ Product home and onboarding experience.
 """
 
 import streamlit as st
+import pandas as pd
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from core.learning_events import record_event, funnel_progress
 
 st.set_page_config(
     page_title="FinLearnX",
@@ -42,6 +50,7 @@ st.sidebar.caption("Educational simulation only · Not financial advice")
 
 
 def onboarding_card() -> None:
+    record_event(st.session_state, "onboarding_started")
     with st.container(border=True):
         st.subheader("Personalize your learning path")
         st.write(
@@ -83,6 +92,7 @@ def onboarding_card() -> None:
             st.session_state.goal = goal
             st.session_state.risk_tolerance = risk
             st.session_state.onboarding_complete = True
+            record_event(st.session_state, "onboarding_completed")
             st.success("Learning profile saved. Your next step is the $100K Portfolio Challenge.")
 
 
@@ -147,6 +157,23 @@ if selection == "Home":
 
     challenge_preview()
 
+    with st.expander("My learning progress"):
+        progress = funnel_progress(st.session_state.get("learning_events", []))
+        for label, event in [
+            ("Learning profile saved", "onboarding_completed"),
+            ("First simulated trade", "first_trade_completed"),
+            ("Portfolio review opened", "portfolio_review_opened"),
+            ("Reflection completed", "learning_review_completed"),
+        ]:
+            st.write(f"{'✅' if progress[event] else '○'} {label}")
+        if st.session_state.get("learning_events"):
+            st.download_button(
+                "Download my session events (CSV)",
+                pd.DataFrame(st.session_state.learning_events).to_csv(index=False),
+                file_name="finlearnx-session-events.csv",
+                mime="text/csv",
+            )
+
     st.subheader("Why FinLearnX")
     p1, p2, p3 = st.columns(3)
     with p1:
@@ -192,12 +219,12 @@ elif selection == "Product Roadmap":
     st.markdown("### P0 — Complete the core loop")
     st.markdown(
         """
-        - guided first-portfolio challenge ✅
+        - guided first-portfolio challenge and session milestones ✅
         - contextual portfolio learning review ✅
         - diversification and concentration feedback ✅
         - S&P 500 benchmark comparison
         - volatility and drawdown metrics
-        - richer educational feedback tied to portfolio decisions
+        - persistent events for aggregate funnel analysis
         """
     )
 
@@ -205,7 +232,7 @@ elif selection == "Product Roadmap":
     st.markdown(
         """
         - decision journal: *Why are you making this trade?*
-        - portfolio-specific AI explanations
+        - measure usefulness of optional AI explanations ✅
         - behavioral-finance insights
         - personalized learning recommendations
         - goal-based learning missions

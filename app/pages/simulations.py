@@ -10,8 +10,12 @@ import yfinance as yf
 import plotly.graph_objects as go
 from datetime import datetime, timedelta
 import sys
-sys.path.append('..')
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 from simulations.trading_sim import TradingSimulator
+from core.learning_events import record_event
 
 # Page configuration
 st.set_page_config(page_title="Stock Simulator", page_icon="💵", layout="wide")
@@ -21,6 +25,7 @@ if 'simulator' not in st.session_state:
     st.session_state.simulator = TradingSimulator(initial_capital=100000)
 if 'trade_history' not in st.session_state:
     st.session_state.trade_history = []
+record_event(st.session_state, "simulator_opened")
 
 # Title and description
 st.title("💵 Stock Picking Simulator")
@@ -28,6 +33,10 @@ st.markdown("""
 Practice trading with **$100,000 virtual cash**. Learn by doing - execute trades,
 track your portfolio, and see real-time performance metrics.
 """)
+if not st.session_state.simulator.transaction_history:
+    st.info("First step: choose a stock in the sidebar, review its price, then make one virtual trade. Open Review My Portfolio afterward to see what you learned.")
+elif st.session_state.simulator.portfolio:
+    st.page_link("portfolio_review.py", label="Review My Portfolio", icon="🧭")
 
 # Sidebar - Trading Controls
 with st.sidebar:
@@ -71,13 +80,15 @@ with st.sidebar:
     total_cost = current_price * quantity
     st.write(f"**Total: ${total_cost:,.2f}**")
     
-    if st.button(f"▶️ {action} {quantity} shares", type="primary", use_container_width=True):
+    if st.button(f"▶️ {action} {quantity} shares", type="primary", use_container_width=True, disabled=current_price <= 0):
         if action == "Buy":
             result = st.session_state.simulator.buy(ticker, quantity, current_price)
         else:
             result = st.session_state.simulator.sell(ticker, quantity, current_price)
         
         if result['success']:
+            record_event(st.session_state, "first_trade_completed")
+            st.session_state.pop("ai_explanation", None)
             st.success(result['message'])
             st.session_state.trade_history.append({
                 'time': datetime.now().strftime('%H:%M:%S'),
@@ -95,6 +106,7 @@ with st.sidebar:
     if st.button("🔄 Reset Portfolio", use_container_width=True):
         st.session_state.simulator = TradingSimulator(initial_capital=100000)
         st.session_state.trade_history = []
+        st.session_state.pop("ai_explanation", None)
         st.rerun()
 
 # Main content area
@@ -247,7 +259,7 @@ with tab3:
     st.subheader("💡 Performance Insights")
     
     if returns['percentage_return'] > 10:
-        st.success("🎉 Excellent! You're outperforming the market average.")
+        st.info("Your simulated return is positive. Compare it with a benchmark over the same period before drawing conclusions about relative performance.")
     elif returns['percentage_return'] > 0:
         st.info("📈 Good job! You're generating positive returns.")
     elif returns['percentage_return'] > -5:
