@@ -36,7 +36,7 @@ track your portfolio, and see real-time performance metrics.
 if not st.session_state.simulator.transaction_history:
     st.info("First step: choose a stock in the sidebar, review its price, then make one virtual trade. Open Review My Portfolio afterward to see what you learned.")
 elif st.session_state.simulator.portfolio:
-    st.page_link("portfolio_review.py", label="Review My Portfolio", icon="🧭")
+    st.page_link("pages/portfolio_review.py", label="Review My Portfolio", icon="🧭")
 
 # Sidebar - Trading Controls
 with st.sidebar:

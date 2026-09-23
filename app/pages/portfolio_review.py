@@ -36,7 +36,7 @@ st.write(
 
 if not simulator.portfolio:
     st.info("Your simulated portfolio is empty. Make at least one trade in the $100K Simulator, then return here for feedback.")
-    st.page_link("simulations.py", label="Open $100K Simulator", icon="🎮")
+    st.page_link("pages/simulations.py", label="Open $100K Simulator", icon="🎮")
     st.stop()
 
 rows = []

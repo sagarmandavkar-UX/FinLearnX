@@ -1,7 +1,7 @@
 # FinLearnX — Learn Investing by Making Decisions
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+![Python](https://img.shields.io/badge/python-3.10%E2%80%933.11-blue)
 ![Status](https://img.shields.io/badge/status-active-success)
 
 FinLearnX is an educational investing simulator designed around one core idea:
@@ -59,10 +59,10 @@ Users start with **$100,000 in virtual cash** and can:
 - follow a guided first-trade prompt and review learning milestones
 - request an AI explanation of portfolio structure and learning exercises (with an API key)
 
-Run it with:
+Run the app with:
 
 ```bash
-streamlit run app/pages/simulations.py
+streamlit run app/main.py
 ```
 
 ---
@@ -75,7 +75,7 @@ streamlit run app/pages/simulations.py
 - buy and sell simulated positions
 - portfolio holdings and allocation
 - trade history
-- validated orders and a 502-trade automated stress case
+- validated orders (including a 502-trade automated test)
 - portfolio return tracking
 - interactive price charts
 - market-data integration with `yfinance`
@@ -84,7 +84,7 @@ streamlit run app/pages/simulations.py
 
 - portfolio optimization utilities
 - portfolio allocation analysis
-- portfolio-specific AI educational explanations, requested explicitly by the user
+- optional portfolio-specific AI educational explanations
 - simulation infrastructure
 
 ### Financial-learning infrastructure
@@ -114,10 +114,7 @@ The roadmap is intentionally prioritized around improving the core learning loop
 ### P0 — Complete the learning loop
 
 - persist learning profiles and event data across sessions for aggregate activation analysis
-- guided **Build Your First $100K Portfolio** challenge
 - benchmark portfolio performance against the S&P 500
-- diversification score
-- concentration-risk warnings
 - volatility and drawdown metrics
 - benchmark-aware feedback tied directly to portfolio decisions
 
@@ -152,7 +149,9 @@ The roadmap is intentionally prioritized around improving the core learning loop
 
 ---
 
-## Product metrics
+## Proposed product metrics
+
+These are measurement goals, not published results. The current app records only individual session milestones.
 
 ### North Star Metric
 
@@ -204,23 +203,27 @@ FinLearnX/
 ├── app/
 │   ├── main.py                  # product home and onboarding
 │   └── pages/
-│       └── simulations.py       # flagship $100K trading simulator
+│       ├── simulations.py       # flagship $100K trading simulator
+│       └── portfolio_review.py  # feedback and reflection
 ├── core/
-│   └── data_ingestion.py        # market-data utilities
+│   ├── data_ingestion.py        # market-data utilities
+│   └── learning_events.py       # session milestones
 ├── ai/
-│   └── tutor_prompts.yaml       # educational AI prompt definitions
+│   ├── tutor_prompts.yaml       # educational prompt definitions
+│   └── portfolio_coach.py       # opt-in portfolio explanation
 ├── portfolio/
 │   └── optimize_mpt.py          # portfolio optimization
 ├── simulations/
 │   └── trading_sim.py           # trading simulation engine
 ├── docs/
-│   └── PRODUCT_STRATEGY.md      # PM strategy, metrics, roadmap
+│   ├── PRODUCT_STRATEGY.md      # PM strategy and roadmap
+│   └── RESEARCH_AND_METRICS.md  # evidence and measurement limits
 ├── tests/
 ├── requirements.txt
 └── README.md
 ```
 
-This section reflects the current repository. Planned capabilities are listed separately in the roadmap rather than presented as already shipped.
+The architecture is detailed in [`docs/architecture.md`](docs/architecture.md). Planned capabilities are listed separately in the roadmap.
 
 ---
 
@@ -241,11 +244,7 @@ pip install -r requirements.txt
 streamlit run app/main.py
 ```
 
-### Run the portfolio simulator directly
-
-```bash
-streamlit run app/pages/simulations.py
-```
+Open the simulator from the sidebar after starting `app/main.py` so the page links work together.
 
 ### Optional AI learning coach
 
