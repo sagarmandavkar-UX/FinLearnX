@@ -25,12 +25,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-          cache-dependency-path: requirements-ci.txt
+          cache-dependency-path: requirements.txt
 
       - name: Install test dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements-ci.txt
+          pip install -r requirements.txt
 
       - name: Verify package imports
         run: |
