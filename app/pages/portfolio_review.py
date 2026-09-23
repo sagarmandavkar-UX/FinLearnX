@@ -18,6 +18,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from simulations.trading_sim import TradingSimulator
+from core.learning_events import record_event
+from ai.portfolio_coach import explain_portfolio
 
 st.set_page_config(page_title="Portfolio Learning Review", page_icon="🧭", layout="wide")
 
@@ -25,6 +27,7 @@ if "simulator" not in st.session_state:
     st.session_state.simulator = TradingSimulator(initial_capital=100000)
 
 simulator = st.session_state.simulator
+record_event(st.session_state, "portfolio_review_opened")
 
 st.title("🧭 Portfolio Learning Review")
 st.write(
@@ -52,6 +55,9 @@ for ticker, quantity in simulator.portfolio.items():
 if not rows:
     st.warning("Market data is temporarily unavailable for the current holdings.")
     st.stop()
+
+if len(rows) != len(simulator.portfolio):
+    st.warning("Some holdings have no current market price. The breakdown below excludes them, so its weights and total are incomplete.")
 
 holdings = pd.DataFrame(rows)
 invested_value = float(holdings["Value"].sum())
@@ -139,9 +145,29 @@ next_decision = st.text_area("What would you change in your next simulation?", p
 
 if st.button("Complete learning review", type="primary"):
     if thesis.strip() and risk.strip() and next_decision.strip():
+        record_event(st.session_state, "learning_review_completed")
         st.success("Learning review completed. The next step is to apply one of these insights in your next simulation.")
     else:
         st.warning("Complete all three reflection prompts to finish the learning review.")
+
+st.subheader("AI learning coach")
+st.write("Get an explanation of this virtual portfolio and suggested learning exercises. The portfolio summary is sent to an AI service when you click Generate.")
+if st.button("Generate educational explanation"):
+    record_event(st.session_state, "ai_explanation_requested")
+    snapshot = {
+        "cash": round(simulator.cash, 2),
+        "holdings": [{"ticker": row["Ticker"], "weight_pct": round(row["Weight"] * 100, 1)} for row in holdings.to_dict("records")],
+        "missing_price_count": len(simulator.portfolio) - len(rows),
+        "diversification_heuristic": diversification_score,
+    }
+    try:
+        st.session_state.ai_explanation = explain_portfolio(snapshot, st.session_state.get("goal", "Learn investing basics"))
+    except Exception as exc:
+        st.session_state.ai_explanation = None
+        st.warning(f"AI explanation unavailable: {exc}")
+if st.session_state.get("ai_explanation"):
+    st.markdown(st.session_state.ai_explanation)
+st.caption("AI text may contain mistakes. Educational exercises only, not investment advice.")
 
 st.divider()
 st.caption("Educational simulation only. This review does not provide personalized financial advice.")

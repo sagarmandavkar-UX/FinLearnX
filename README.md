@@ -56,6 +56,8 @@ Users start with **$100,000 in virtual cash** and can:
 - measure total return
 - review trading history
 - receive educational performance feedback
+- follow a guided first-trade prompt and review learning milestones
+- request an AI explanation of portfolio structure and learning exercises (with an API key)
 
 Run it with:
 
@@ -73,6 +75,7 @@ streamlit run app/pages/simulations.py
 - buy and sell simulated positions
 - portfolio holdings and allocation
 - trade history
+- validated orders and a 502-trade automated stress case
 - portfolio return tracking
 - interactive price charts
 - market-data integration with `yfinance`
@@ -81,6 +84,7 @@ streamlit run app/pages/simulations.py
 
 - portfolio optimization utilities
 - portfolio allocation analysis
+- portfolio-specific AI educational explanations, requested explicitly by the user
 - simulation infrastructure
 
 ### Financial-learning infrastructure
@@ -95,6 +99,11 @@ streamlit run app/pages/simulations.py
 - modular Python architecture
 - tests and GitHub workflow structure
 - financial-data ingestion utilities
+- session-scoped activation events with a CSV export for individual testing sessions
+
+### Reported project research
+
+The creator reports **500+ simulated trades** and feedback gathered from **90+ users** during product development. These are historical, user-supplied project figures; the raw trade logs, user feedback, and aggregate funnel analysis are not in this repository. The automated test of 502 trades checks software behavior and is not evidence of live usage. See [`docs/RESEARCH_AND_METRICS.md`](docs/RESEARCH_AND_METRICS.md) for the measurement plan and evidence limits.
 
 ---
 
@@ -104,18 +113,18 @@ The roadmap is intentionally prioritized around improving the core learning loop
 
 ### P0 — Complete the learning loop
 
-- onboarding by investing experience, learning goal, and risk tolerance
+- persist learning profiles and event data across sessions for aggregate activation analysis
 - guided **Build Your First $100K Portfolio** challenge
 - benchmark portfolio performance against the S&P 500
 - diversification score
 - concentration-risk warnings
 - volatility and drawdown metrics
-- educational feedback tied directly to portfolio decisions
+- benchmark-aware feedback tied directly to portfolio decisions
 
 ### P1 — Personalized financial learning
 
 - decision journal: *Why are you making this trade?*
-- portfolio-specific AI explanations
+- compare AI explanation usefulness with contextual, non-AI feedback
 - personalized lesson recommendations based on user behavior
 - behavioral-finance insights such as overtrading, concentration, and loss aversion
 - learning missions such as:
@@ -237,6 +246,12 @@ streamlit run app/main.py
 ```bash
 streamlit run app/pages/simulations.py
 ```
+
+### Optional AI learning coach
+
+Set `OPENAI_API_KEY` in your environment to enable the Generate button in Portfolio Learning Review. Optionally set `FINLEARNX_AI_MODEL` to a Responses API compatible model; the default is `gpt-4.1-mini`. The button sends the simulated holdings' ticker symbols and weights, cash, and the learning goal. It does not send a name, email, or the session event log. AI output may be inaccurate and is framed as educational exercises, not trading instructions. Without a key, trading and rule-based portfolio review continue to work. The API can incur usage charges.
+
+Session events live only in Streamlit session state and can be exported as CSV from Home. They are not stored centrally, so they cannot by themselves establish unique-user counts, aggregate conversion, or retention.
 
 ---
 

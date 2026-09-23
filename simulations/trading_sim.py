@@ -7,6 +7,7 @@ import yfinance as yf
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
+from math import isfinite
 
 class TradingSimulator:
     """Paper trading simulator with virtual cash"""
@@ -27,6 +28,8 @@ class TradingSimulator:
             quantity: Number of shares
             price: Price per share
         """
+        if not isinstance(quantity, int) or isinstance(quantity, bool) or quantity <= 0 or not isfinite(price) or price <= 0:
+            return {"success": False, "message": "Quantity and price must be positive"}
         cost = quantity * price
         
         if cost > self.cash:
@@ -58,6 +61,8 @@ class TradingSimulator:
             quantity: Number of shares
             price: Price per share
         """
+        if not isinstance(quantity, int) or isinstance(quantity, bool) or quantity <= 0 or not isfinite(price) or price <= 0:
+            return {"success": False, "message": "Quantity and price must be positive"}
         if ticker not in self.portfolio or self.portfolio[ticker] < quantity:
             return {"success": False, "message": "Insufficient shares"}
         
