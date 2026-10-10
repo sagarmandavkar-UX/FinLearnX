@@ -1,5 +1,7 @@
 # FinLearnX — Learn Investing by Making Decisions
 
+[![Tests](https://github.com/sagarmandavkar-UX/FinLearnX/actions/workflows/tests.yml/badge.svg)](https://github.com/sagarmandavkar-UX/FinLearnX/actions/workflows/tests.yml)
+
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.10%E2%80%933.11-blue)
 ![Status](https://img.shields.io/badge/status-active-success)
